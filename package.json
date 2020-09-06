@@ -1,0 +1,27 @@
+{
+  "name": "artchitects_productions",
+  "version": "1.0.0",
+  "description": "Artchitects Production's official site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paniaguaadrian/artchitects_productions.git"
+  },
+  "author": "\"krunal jumde\" , \"Adrian Paniagua Sanchez\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paniaguaadrian/artchitects_productions/issues"
+  },
+  "homepage": "https://github.com/paniaguaadrian/artchitects_productions#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.3",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemon": "^2.0.4"
+  }
+}
