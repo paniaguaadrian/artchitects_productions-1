@@ -52,6 +52,7 @@ app.get('/pricing', (req, res) => {
 
 app.get('/pricingService', (req, res) => {
     res.redirect('http://localhost:3000/#service');
+    // when we deploy this site on server we need to change the domain here
 })
 
 app.get('/history', (req, res) => {
@@ -60,6 +61,7 @@ app.get('/history', (req, res) => {
 
 app.get('/historyService', (req, res) => {
     res.redirect('http://localhost:3000/#service');
+    // when we deploy this site on server we need to change the domain here
 });
 
 app.post('/register', (req, res) => {
