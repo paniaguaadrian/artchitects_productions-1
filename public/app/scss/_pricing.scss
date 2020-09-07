@@ -87,3 +87,24 @@
 
     }
 }
+
+.lasttext {
+    text-align: center;
+    align-items: center;
+    padding: 2rem 15rem;
+
+    @include breakpoint-down(small) {
+        text-align: center;
+        align-items: center;
+        padding: 3rem 1rem 1rem;
+        font-size: $font-vsm;
+    }
+
+    h5 {
+        font-style: italic;
+
+        @include breakpoint-down(small) {
+            font-size: $font-vsm;
+        }
+    }
+}
