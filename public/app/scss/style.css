@@ -2143,13 +2143,14 @@ button,
 }
 
 .body__container {
-  height: 100%;
+  height: 200%;
   background: linear-gradient(130deg, #4631ef 10%, #841eff 40%, #b041c1 85%);
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -ms-flex-line-pack: center;
       align-content: center;
+  color: white;
 }
 
 .container__admin {
@@ -2164,5 +2165,84 @@ button,
   width: 30rem;
   -webkit-box-shadow: 5px 5px 20px 15px #0000008c;
           box-shadow: 5px 5px 20px 15px #0000008c;
+}
+
+.navbar__admin {
+  border-bottom: 1px white solid;
+}
+
+.list__header {
+  margin: 2rem 2rem;
+}
+
+.list__header h1 {
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.list__container {
+  margin-top: 2.5rem;
+  font-size: 1rem;
+  font-family: "Raleway", sans-serif;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  width: 50%;
+}
+
+@media (max-width: 39.9375em) {
+  .list-group-item {
+    width: 100%;
+  }
+}
+
+.forms__container {
+  margin: 4rem 0rem 0rem 1rem;
+}
+
+@media (max-width: 39.9375em) {
+  .forms__container {
+    margin: 1rem 1rem;
+  }
+}
+
+.jumbotron {
+  background-color: transparent !important;
+  border: 1px solid white;
+  width: 75%;
+  margin-bottom: 20px;
+  padding: 1rem 2rem;
+}
+
+.jumbotron hr {
+  background-color: rgba(255, 255, 255, 0.541) !important;
+}
+
+@media (max-width: 39.9375em) {
+  .jumbotron {
+    width: 100%;
+  }
+}
+
+.jumbotron h1 {
+  font-size: 1.7rem;
+}
+
+@media (max-width: 39.9375em) {
+  .jumbotron h1 {
+    font-size: 1.3rem;
+  }
+}
+
+.email__text {
+  font-size: 1rem;
+}
+
+.button__admin:hover {
+  border: 1px solid white;
 }
 /*# sourceMappingURL=style.css.map */

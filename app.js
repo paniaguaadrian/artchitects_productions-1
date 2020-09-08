@@ -2,17 +2,36 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongooseValidator = require('mongoose-unique-validator');
+const passport = require('passport');
+const passportLocal = require('passport-local');
+const session = require('express-session');
+const passportLocalMongoose = require('passport-local-mongoose');
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const ejs = require('ejs');
+const { result } = require('lodash');
 const app = express();
 const port = 3000;
 const dir = __dirname + '/';
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: "asdfloiasdfljkasdfafd.",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // setting up mongoDB
 mongoose.set('useCreateIndex', true);
 
 mongoose.connect("mongodb://localhost:27017/artchitectsDB", { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const usrSchema = new mongoose.Schema({
     name: String,
@@ -34,9 +53,26 @@ newsLetterSchema.plugin(mongooseValidator);
 
 const Subscriber = new mongoose.model('Subscriber', newsLetterSchema);
 
+const adminSchema = new mongoose.Schema({
+    username: String,
+    password: String
+});
+
+adminSchema.plugin(passportLocalMongoose);
+
+const Admin = new mongoose.model("Admin", adminSchema);
+
+passport.use(Admin.createStrategy());
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
+
+
 
 // setting mongodb ends here
 
+
+
+// temp route
 
 
 
@@ -64,6 +100,9 @@ app.get('/historyService', (req, res) => {
     // when we deploy this site on server we need to change the domain here
 });
 
+app.get('/hamburgerService', (req, res) => {
+    res.redirect('http://localhost:3000/#service');
+})
 app.post('/register', (req, res) => {
     User.find({ mailID: req.body.umail }, (err, data) => {
         if (err) { console.log(err); }
@@ -96,9 +135,88 @@ app.post('/newsLetterSignUp', (req, res) => {
     res.redirect('/');
 });
 
+app.route('/adminReg')
+    .get((req, res) => {
+        res.sendFile(__dirname + "/admin_registration.html");
+    })
+    .post((req, res) => {
+        Admin.register({ username: req.body.username }, req.body.password, (err, user) => {
+            if (err) {
+                console.log(err);
+                res.redirect('/');
+            } else {
+                passport.authenticate("local")(req, res, () => {
+                    res.redirect('/newsLetter-Emails')
+                });
+            }
+        });
+    });
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+})
+
+app.route('/admin-login')
+    .get((req, res) => {
+        res.render("admin_login");
+    })
+    .post((req, res) => {
+        const ad = new Admin({
+            username: req.body.username,
+            password: req.body.password
+        });
+        req.login(ad, (err) => {
+            if (err) console.log(err);
+            else {
+                passport.authenticate("local")(req, res, () => {
+                    res.redirect('/newsLetter-Emails');
+                });
+            }
+        })
+
+    });
+
+app.get('/newsLetter-emails', (req, res) => {
+    if (req.isAuthenticated()) {
+        Subscriber.find({}, (err, data) => {
+            if (err) console.log(err);
+            else {
+                res.render("subscriptions", { list: data });
+            }
+        });
+    } else {
+        res.redirect('/');
+    }
+});
+
+app.get('/user-data', (req, res) => {
+    if (req.isAuthenticated()) {
+        User.find({}, (err, data) => {
+            if (err) console.log(err);
+            else {
+                res.render("user-data", { userData: data });
+            }
+        });
+    } else {
+        res.redirect('/');
+    }
+});
 // routs ends here
 
 
 app.listen(port, (data) => {
     console.log("Server is running on port " + port);
 });
+
+// Below are some important links
+
+// localhost:3000/adminReg
+
+// localhost:3000/admin-login
+
+// locahost:3000/newsLetter-emails
+
+// locahost:3000/user-data
+
+// locahost:3000/logout
