@@ -1,8 +1,6 @@
 .footer__container {
-    height: 8rem;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    height: 14rem;
+    flex-direction: column;
     background: linear-gradient(-40deg, rgba(70, 49, 239, 1) 10%, rgba(132, 30, 255, 1) 40%, rgba(176, 65, 193, 1) 85%);
     color: white;
 
@@ -11,6 +9,14 @@
         height: 12rem;
     }
 }
+
+.first__part__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+}
+
 
 .footer__logo {
     img {
@@ -82,4 +88,25 @@
         }
     }
 
+}
+
+.copyright__container {
+    color: white;
+    text-align: center;
+    align-items: center;
+    padding-top: 4rem;
+
+    @include breakpoint-down(small) {
+        padding-top: 2rem;
+    }
+
+    h2 {
+        font-size: $font-sm;
+        font-weight: 100;
+
+        @include breakpoint-down(small) {
+            font-size: $font-vsm;
+            font-weight: 100;
+        }
+    }
 }
